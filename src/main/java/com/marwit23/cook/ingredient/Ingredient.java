@@ -21,7 +21,7 @@ public class Ingredient {
     @Enumerated(EnumType.STRING)
     private IngredientCategory ingredientCategory;
 
-    private BigDecimal unitPrice;
+    private BigDecimal pricePerKg;
     private int shelfLife;
 
     @OneToMany(mappedBy = "dishIngredientId")
