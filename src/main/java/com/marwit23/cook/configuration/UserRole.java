@@ -17,12 +17,12 @@ public enum UserRole {
     UserRole(Set<UserPermission> userPermissions) {
         this.userPermissions = userPermissions;
     }
-
     public Set<UserPermission> getUserPermissions() {
         return userPermissions;
     }
-
     public void setUserPermissions(Set<UserPermission> userPermissions) {
         this.userPermissions = userPermissions;
     }
+
+
 }

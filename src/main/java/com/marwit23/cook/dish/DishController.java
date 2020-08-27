@@ -1,6 +1,7 @@
 package com.marwit23.cook.dish;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class DishController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMiN')")
     public Dish addDish(@RequestBody Dish theDish) {
         theDish.setDishId(0);
         dishService.save(theDish);
@@ -39,12 +41,14 @@ public class DishController {
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Dish updateDish(@RequestBody Dish theDish) {
         dishService.save(theDish);
         return theDish;
     }
 
     @DeleteMapping("/{dishId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteById(@PathVariable Long dishId) {
         Dish tempDish = dishService.findById(dishId);
         if(tempDish == null){
