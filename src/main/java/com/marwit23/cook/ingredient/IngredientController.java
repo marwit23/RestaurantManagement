@@ -1,6 +1,7 @@
 package com.marwit23.cook.ingredient;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class IngredientController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Ingredient addIngredient(@RequestBody Ingredient theIngredient){
         theIngredient.setIngredientId((long) 0);
         ingredientService.save(theIngredient);
@@ -39,12 +41,14 @@ public class IngredientController {
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Ingredient updateIngredient(@RequestBody Ingredient theIngredient) {
         ingredientService.save(theIngredient);
         return theIngredient;
     }
 
     @DeleteMapping("/{ingredientId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteIngredient(@PathVariable Long ingredientId) {
         Ingredient tempIngredient = ingredientService.findById(ingredientId);
 
