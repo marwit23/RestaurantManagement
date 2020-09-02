@@ -1,4 +1,4 @@
-package com.marwit23.cook.delivery.deliveryitem;
+package com.marwit23.cook.deliveryitem;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.marwit23.cook.ingredient.Ingredient;
@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Getter @Setter
 @Entity
@@ -18,6 +19,7 @@ public class DeliveryItem {
     @OneToOne
     private Ingredient ingredient;
     private int deliveryQuantity;
+    private BigDecimal pricePerKg;
 
     @Transient
     @JsonProperty

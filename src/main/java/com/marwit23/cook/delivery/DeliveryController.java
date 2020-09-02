@@ -1,5 +1,6 @@
 package com.marwit23.cook.delivery;
 
+import com.marwit23.cook._exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,26 +22,29 @@ public class DeliveryController {
         return deliveryService.findAll();
     }
 
+    @PostMapping
+    public Delivery addDelivery(@RequestBody Delivery theDelivery) {
+        deliveryService.save(theDelivery);
+        return theDelivery;
+    }
+
     @GetMapping("/{deliveryId}")
-    public Delivery findById(@PathVariable Long deliveryId) {
+    public Delivery getDelivery(@PathVariable Long deliveryId) {
         Delivery theDelivery = deliveryService.findById(deliveryId);
 
         if(theDelivery == null){
-            throw new RuntimeException("Delivery id not found - " + deliveryId);
+            throw new EntityNotFoundException("delivery", deliveryId);
         }
         return theDelivery;
     }
 
-    @PostMapping
-    public Delivery addDelivery(@RequestBody Delivery theDelivery) {
-        theDelivery.setDeliveryId(0);
-        deliveryService.save(theDelivery);
-        return theDelivery;
-    }
+    @PutMapping("/{deliveryId}")
+    public Delivery updateDelivery(@RequestBody Delivery theDelivery, @PathVariable Long deliveryId) {
 
-    @PutMapping
-    public Delivery updateDelivery(@RequestBody Delivery theDelivery) {
+        deliveryService.findById(deliveryId);
+
         deliveryService.save(theDelivery);
+
         return theDelivery;
     }
 

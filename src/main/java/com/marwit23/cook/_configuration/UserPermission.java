@@ -1,4 +1,4 @@
-package com.marwit23.cook.configuration;
+package com.marwit23.cook._configuration;
 
 public enum UserPermission {
     USER_READ("user:read"),

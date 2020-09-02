@@ -1,7 +1,7 @@
 package com.marwit23.cook.delivery;
 
-import com.marwit23.cook.constants.DeliveryStatus;
-import com.marwit23.cook.delivery.deliveryitem.DeliveryItem;
+import com.marwit23.cook._constants.DeliveryStatus;
+import com.marwit23.cook.deliveryitem.DeliveryItem;
 import lombok.Getter;
 import lombok.Setter;
 

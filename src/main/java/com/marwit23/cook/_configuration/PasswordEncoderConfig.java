@@ -1,4 +1,4 @@
-package com.marwit23.cook.configuration;
+package com.marwit23.cook._configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
