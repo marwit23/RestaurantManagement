@@ -1,5 +1,6 @@
 package com.marwit23.cook.delivery;
 
+import com.marwit23.cook._exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class DeliveryServiceImpl implements DeliveryService{
         if(result.isPresent()){
             theDelivery = result.get();
         } else {
-            throw new RuntimeException("Didn't find Id - " + deliveryId);
+            throw new EntityNotFoundException("delivery", deliveryId);
         }
         return theDelivery;
     }

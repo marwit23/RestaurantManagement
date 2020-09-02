@@ -1,6 +1,6 @@
 package com.marwit23.cook.todo;
 
-import com.marwit23.cook.constants.ToDoStatus;
+import com.marwit23.cook._constants.ToDoStatus;
 
 import com.marwit23.cook.dish.Dish;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.marwit23.cook.dish.dishingredient;
+package com.marwit23.cook.dishingredient;
 
 import com.marwit23.cook.dish.Dish;
 import com.marwit23.cook.ingredient.Ingredient;

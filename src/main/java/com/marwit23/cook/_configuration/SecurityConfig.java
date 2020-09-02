@@ -1,4 +1,4 @@
-package com.marwit23.cook.configuration;
+package com.marwit23.cook._configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static com.marwit23.cook.configuration.UserRole.*;
+import static com.marwit23.cook._configuration.UserRole.*;
 
 
 
@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/api/**").hasAnyRole(ADMIN.name(), USER.name())

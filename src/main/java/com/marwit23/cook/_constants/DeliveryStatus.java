@@ -1,4 +1,4 @@
-package com.marwit23.cook.constants;
+package com.marwit23.cook._constants;
 
 public enum DeliveryStatus {
     ORDERED("ordered"),

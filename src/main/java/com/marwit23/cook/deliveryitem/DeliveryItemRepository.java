@@ -1,4 +1,4 @@
-package com.marwit23.cook.delivery.deliveryitem;
+package com.marwit23.cook.deliveryitem;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

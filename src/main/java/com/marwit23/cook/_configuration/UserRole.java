@@ -1,11 +1,11 @@
-package com.marwit23.cook.configuration;
+package com.marwit23.cook._configuration;
 
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.marwit23.cook.configuration.UserPermission.*;
+import static com.marwit23.cook._configuration.UserPermission.*;
 
 public enum UserRole {
 

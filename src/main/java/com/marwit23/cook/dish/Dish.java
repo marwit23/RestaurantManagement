@@ -1,7 +1,7 @@
 package com.marwit23.cook.dish;
 
 
-import com.marwit23.cook.dish.dishingredient.DishIngredient;
+import com.marwit23.cook.dishingredient.DishIngredient;
 import lombok.Getter;
 import lombok.Setter;
 
