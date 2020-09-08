@@ -30,7 +30,6 @@ public class IngredientController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public Ingredient addIngredient(@RequestBody Ingredient theIngredient) {
-        theIngredient.setIngredientId((long) 0);
         ingredientService.save(theIngredient);
         return theIngredient;
     }
@@ -38,14 +37,14 @@ public class IngredientController {
     @GetMapping("/{ingredientId}")
     public Ingredient getIngredient(@PathVariable Long ingredientId) {
         Ingredient theIngredient = ingredientService.findById(ingredientId);
-        if (theIngredient == null) throw new EntityNotFoundException("_ingredient_", ingredientId);
+        if (theIngredient == null) throw new EntityNotFoundException("ingredient", ingredientId.toString());
         return theIngredient;
     }
 
     @PutMapping("/{ingredientId}")
     @PreAuthorize("hasRole('ADMIN')")
     public Ingredient updateIngredient(@Valid @RequestBody Ingredient theIngredient, @PathVariable Long ingredientId) {
-        ingredientService.findById(ingredientId);
+        theIngredient.setIngredientId(ingredientId);
         ingredientService.save(theIngredient);
         return theIngredient;
     }
@@ -54,7 +53,7 @@ public class IngredientController {
     @PreAuthorize("hasRole('ADMIN')")
     public String deleteIngredient(@PathVariable Long ingredientId) {
         Ingredient tempIngredient = ingredientService.findById(ingredientId);
-        if (tempIngredient == null) throw new RuntimeException("Ingredient id not found - " + ingredientId);
+        if (tempIngredient == null) throw new EntityNotFoundException("ingredient", ingredientId.toString());
         ingredientService.deleteById(ingredientId);
         return "Deleted ingredient id - " + ingredientId;
     }

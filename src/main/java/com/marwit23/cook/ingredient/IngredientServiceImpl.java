@@ -31,26 +31,28 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public Ingredient findById(Long theId) {
         Optional<Ingredient> result = ingredientRepository.findById(theId);
-        Ingredient theIngredient = result.get();
+        Ingredient theIngredient;
+        if(result.isPresent()) theIngredient = result.get();
+        else throw new EntityNotFoundException("ingredient", theId.toString());
+        return theIngredient;
+    }
 
-        if(result.isPresent()){
-            theIngredient =result.get();
-        } else {
-            throw new EntityNotFoundException("ingredient", theId);
-        }
-
+    @Override
+    public Ingredient findByName(String ingredientName) {
+        Optional<Ingredient> result = ingredientRepository.findByIngredientName(ingredientName);
+        Ingredient theIngredient;
+        if(result.isPresent()) theIngredient =result.get();
+        else throw new EntityNotFoundException("ingredient", ingredientName);
         return theIngredient;
     }
 
     @Override
     public void save(Ingredient theIngredient) {
         ingredientRepository.save(theIngredient);
-
     }
 
     @Override
     public void deleteById(Long theId) {
         ingredientRepository.deleteById(theId);
-
     }
 }

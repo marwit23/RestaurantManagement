@@ -1,5 +1,6 @@
-package com.marwit23.cook.dishingredient;
+package com.marwit23.cook.dish;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.marwit23.cook.dish.Dish;
 import com.marwit23.cook.ingredient.Ingredient;
 import lombok.Getter;
@@ -16,9 +17,10 @@ public class DishIngredient {
     private long dishIngredientId;
 
     @ManyToOne
-    @JoinColumn(name = "recipeIngredients" )
+    @JoinColumn(name = "ingredientId")
+    @JsonIgnoreProperties("dishIngredients")
     private Ingredient ingredient;
-    private int ingredientQuantity;
+    private int dishQuantityGrams;
 
     @ManyToOne
     @JoinColumn(name = "dishId")

@@ -1,6 +1,8 @@
 package com.marwit23.cook.dish;
 
+import com.marwit23.cook._exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,31 +20,31 @@ public class DishController {
     }
 
     @GetMapping
-    public List<Dish> findAll() {
-        return dishService.findAll();
-    }
-
-    @GetMapping("/{dishId}")
-    public Dish findById(@PathVariable Long dishId) {
-        Dish theDish = dishService.findById(dishId);
-
-        if(theDish == null){
-            throw new RuntimeException("Dish id not found -" +dishId);
-        }
-        return theDish;
+    public List<Dish> findAll(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "dishId") String sortBy) {
+        return dishService.findAll(pageNo, pageSize, sortBy);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMiN')")
     public Dish addDish(@RequestBody Dish theDish) {
-        theDish.setDishId(0);
         dishService.save(theDish);
         return theDish;
     }
 
-    @PutMapping
+    @GetMapping("/{dishId}")
+    public Dish findById(@PathVariable Long dishId) {
+        Dish theDish = dishService.findById(dishId);
+        if(theDish == null) throw new EntityNotFoundException("dish", dishId.toString());
+        return theDish;
+    }
+
+    @PutMapping("/{dishId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Dish updateDish(@RequestBody Dish theDish) {
+    public Dish updateDish(@RequestBody Dish theDish, @PathVariable Long dishId) {
+        theDish.setDishId(dishId);
         dishService.save(theDish);
         return theDish;
     }
@@ -51,9 +53,7 @@ public class DishController {
     @PreAuthorize("hasRole('ADMIN')")
     public String deleteById(@PathVariable Long dishId) {
         Dish tempDish = dishService.findById(dishId);
-        if(tempDish == null){
-            throw new RuntimeException("Dish id not found -" + dishId);
-        }
+        if(tempDish == null) throw new RuntimeException("Dish id not found -" + dishId);
         dishService.deleteById(dishId);
         return "Deleted dish id - " + dishId;
     }
