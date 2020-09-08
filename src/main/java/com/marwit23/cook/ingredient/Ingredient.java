@@ -1,7 +1,7 @@
 package com.marwit23.cook.ingredient;
 
 import com.marwit23.cook._constants.IngredientCategory;
-import com.marwit23.cook.dishingredient.DishIngredient;
+import com.marwit23.cook.dish.DishIngredient;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
@@ -30,6 +30,6 @@ public class Ingredient {
     @Range(min = 1, max = 180, message = "shelf life must be between 1 and 180 days")
     private int shelfLife;
 
-    @OneToMany(mappedBy = "dishIngredientId")
+    @OneToMany(mappedBy = "ingredient")
     private List<DishIngredient> dishIngredients;
 }

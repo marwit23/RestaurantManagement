@@ -5,24 +5,32 @@ package com.marwit23.cook.inventory;
 
 // ? Zamienić na Service?
 
+
 public class Inventory {
 
-    private String inventoryIngredient(){
-        return "abc";
-    };
+    private String inventoryIngredientName;
+    private int totalIngredientQuantity;
+    private int orderedIngredientQuantity;
+    private int safeIngredientQuantity;
+    private int notSafeIngredientQuantity;
 
-    private int totalIngredientQuantity(){
-        return 0;
-    };
-
-    private int orderedIngredientQuantity(){
-        return 0;
-    }
-    private int safeIngredientQuantity(){
-        return 0;
+    public String getInventoryIngredientName() {
+        return inventoryIngredientName;
     }
 
-    private int notSafeIngredientQuantity(){
-        return 0;
+    public int getTotalIngredientQuantity() {
+        return totalIngredientQuantity;
+    }
+
+    public int getOrderedIngredientQuantity() {
+        return orderedIngredientQuantity;
+    }
+
+    public int getSafeIngredientQuantity() {
+        return safeIngredientQuantity;
+    }
+
+    public int getNotSafeIngredientQuantity() {
+        return notSafeIngredientQuantity;
     }
 }

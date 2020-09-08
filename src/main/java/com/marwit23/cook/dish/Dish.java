@@ -1,7 +1,7 @@
 package com.marwit23.cook.dish;
 
 
-import com.marwit23.cook.dishingredient.DishIngredient;
+import com.marwit23.cook.delivery.DeliveryItem;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,4 +19,11 @@ public class Dish {
 
     @OneToMany(mappedBy = "dish")
     private List<DishIngredient> dishIngredients;
+
+    public void setDishIngredients(List<DishIngredient> dishIngredients) {
+        this.dishIngredients = dishIngredients;
+        for(DishIngredient dishIngredient: this.dishIngredients) {
+            dishIngredient.setDish(this);
+        }
+    }
 }
