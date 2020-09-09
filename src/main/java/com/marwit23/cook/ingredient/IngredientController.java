@@ -22,7 +22,7 @@ public class IngredientController {
     @GetMapping
     public List<Ingredient> findAll(
             @RequestParam(defaultValue = "0") Integer pageNo,
-            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "25") Integer pageSize,
             @RequestParam(defaultValue = "IngredientName") String sortBy) {
         return ingredientService.findAll(pageNo, pageSize, sortBy);
     }

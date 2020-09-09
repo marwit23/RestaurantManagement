@@ -2,29 +2,34 @@ package com.marwit23.cook.delivery;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.marwit23.cook.ingredient.Ingredient;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Parent;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Getter @Setter
+@Getter
+@Setter
 @Entity
 public class DeliveryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private long deliveryItemId;
 
     @ManyToOne
-    @JoinColumn (name = "ingredientId")
-    @JsonIgnoreProperties("dishIngredients")
+    @JoinColumn(name = "ingredientId")
+    @JsonIgnoreProperties({
+            "ingredientCategory",
+            "dishIngredients",
+            "shelfLife",
+            "deliveryItems",
+    })
     private Ingredient ingredient;
-    private int deliveryQuantityGrams;
+    private int quantityGrams;
     private BigDecimal pricePerKg;
 
     @ManyToOne
@@ -36,15 +41,17 @@ public class DeliveryItem {
     private boolean isSafeToEat;
 
     @PostLoad
-    protected void onLoad(){
+    protected void onLoad() {
         checkIsSafeToEat();
     }
 
-    protected void checkIsSafeToEat(){
-        if(delivery.getDeliveredDate().plusDays(ingredient.getShelfLife()).isAfter(LocalDate.now().plusDays(1))) {
-            isSafeToEat = true;
-        } else {
-            isSafeToEat = false;
+    protected void checkIsSafeToEat() {
+        if (delivery.getDeliveredDate() != null) {
+            if (delivery.getDeliveredDate().plusDays(ingredient.getShelfLife()).isAfter(LocalDate.now().minusDays(1))) {
+                isSafeToEat = true;
+            } else {
+                isSafeToEat = false;
+            }
         }
     }
 }

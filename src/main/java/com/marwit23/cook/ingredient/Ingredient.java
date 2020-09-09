@@ -1,6 +1,9 @@
 package com.marwit23.cook.ingredient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.marwit23.cook._constants.IngredientCategory;
+import com.marwit23.cook.delivery.DeliveryItem;
 import com.marwit23.cook.dish.DishIngredient;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +13,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Getter @Setter
+import static com.marwit23.cook._constants.DeliveryStatus.DELIVERED;
+import static com.marwit23.cook._constants.DeliveryStatus.ORDERED;
+
+@Getter
+@Setter
 @Entity
 public class Ingredient {
 
@@ -31,5 +38,46 @@ public class Ingredient {
     private int shelfLife;
 
     @OneToMany(mappedBy = "ingredient")
+    @JsonIgnore
     private List<DishIngredient> dishIngredients;
+
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<DeliveryItem> deliveryItems;
+
+    @Transient
+    @JsonProperty
+    private int totalQuantity;
+
+    @Transient
+    @JsonProperty
+    private int orderedQuantity;
+
+    @Transient
+    @JsonProperty
+    private int safeQuantity;
+
+    @PostLoad
+    protected void onLoad() {
+        updateQuantity();
+    }
+
+    public void updateQuantity() {
+        for (DeliveryItem deliveryItem : deliveryItems) {
+            if (deliveryItem.delivery.getDeliveryStatus() == ORDERED) {
+                orderedQuantity = orderedQuantity + deliveryItem.getQuantityGrams();
+            } else if (deliveryItem.delivery.getDeliveryStatus() == DELIVERED) {
+                totalQuantity = totalQuantity + deliveryItem.getQuantityGrams();
+            }
+        }
+        for (DeliveryItem deliveryItem : deliveryItems) {
+            if (deliveryItem.isSafeToEat()) {
+                safeQuantity = safeQuantity + deliveryItem.getQuantityGrams();
+            }
+        }
+        for (DishIngredient dishIngredient : dishIngredients) {
+            totalQuantity = totalQuantity - dishIngredient.getQuantityGrams();
+            safeQuantity = safeQuantity - dishIngredient.getQuantityGrams();
+        }
+    }
 }
