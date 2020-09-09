@@ -1,7 +1,6 @@
 package com.marwit23.cook.delivery;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.marwit23.cook._constants.DeliveryStatus;
 import com.marwit23.cook._exception.DateNotValidException;
 import lombok.Getter;
@@ -14,7 +13,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.marwit23.cook._constants.DeliveryStatus.*;
+import static com.marwit23.cook._constants.DeliveryStatus.DELIVERED;
+import static com.marwit23.cook._constants.DeliveryStatus.ORDERED;
 
 @Getter
 @Setter
@@ -38,7 +38,8 @@ public class Delivery {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate deliveredDate;
 
-    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
+    @NotNull
+    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<DeliveryItem> deliveryItems;
 
     @PrePersist
@@ -63,7 +64,8 @@ public class Delivery {
     }
 
     public void checkDeliveredDate() {
-        if (deliveredDate.isBefore(orderedDate)) throw new DateNotValidException();
+
+        if (deliveredDate!= null && deliveredDate.isBefore(orderedDate)) throw new DateNotValidException();
     }
 
     public void setDeliveryItems(List<DeliveryItem> deliveryItems) {

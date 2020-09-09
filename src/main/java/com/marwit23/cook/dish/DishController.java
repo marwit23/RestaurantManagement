@@ -2,7 +2,6 @@ package com.marwit23.cook.dish;
 
 import com.marwit23.cook._exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +21,13 @@ public class DishController {
     @GetMapping
     public List<Dish> findAll(
             @RequestParam(defaultValue = "0") Integer pageNo,
-            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "25") Integer pageSize,
             @RequestParam(defaultValue = "dishId") String sortBy) {
         return dishService.findAll(pageNo, pageSize, sortBy);
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMiN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public Dish addDish(@RequestBody Dish theDish) {
         dishService.save(theDish);
         return theDish;

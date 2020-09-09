@@ -20,7 +20,7 @@ public class DeliveryController {
     @GetMapping
     public List<Delivery> findAll(
             @RequestParam(defaultValue = "0") Integer pageNo,
-            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "25") Integer pageSize,
             @RequestParam(defaultValue = "orderedDate") String sortBy) {
         return deliveryService.findAll(pageNo, pageSize, sortBy);
     }

@@ -1,7 +1,5 @@
 package com.marwit23.cook.dish;
 
-
-import com.marwit23.cook.delivery.DeliveryItem;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,9 +13,10 @@ public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long dishId;
+    @Column(unique = true)
     private String dishName;
 
-    @OneToMany(mappedBy = "dish")
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL)
     private List<DishIngredient> dishIngredients;
 
     public void setDishIngredients(List<DishIngredient> dishIngredients) {
