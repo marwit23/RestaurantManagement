@@ -11,7 +11,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 public class DeliveryServiceTest {
