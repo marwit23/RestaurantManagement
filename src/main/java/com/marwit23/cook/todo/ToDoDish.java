@@ -18,7 +18,8 @@ public class ToDoDish {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long toDoDishId;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "dishId")
     @JsonIgnoreProperties("dishIngredients")
     private Dish dish;
 

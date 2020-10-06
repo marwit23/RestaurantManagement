@@ -23,7 +23,7 @@ public class IngredientController {
     public List<Ingredient> findAll(
             @RequestParam(defaultValue = "0") Integer pageNo,
             @RequestParam(defaultValue = "25") Integer pageSize,
-            @RequestParam(defaultValue = "IngredientName") String sortBy) {
+            @RequestParam(defaultValue = "ingredientId") String sortBy) {
         return ingredientService.findAll(pageNo, pageSize, sortBy);
     }
 

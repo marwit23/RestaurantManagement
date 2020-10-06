@@ -75,9 +75,11 @@ public class Ingredient {
                 safeQuantity = safeQuantity + deliveryItem.getQuantityGrams();
             }
         }
-        for (DishIngredient dishIngredient : dishIngredients) {
-            totalQuantity = totalQuantity - dishIngredient.getQuantityGrams();
-            safeQuantity = safeQuantity - dishIngredient.getQuantityGrams();
+
+        for(DishIngredient dishIngredient: dishIngredients){
+            for (ToDoDish toDoDish : dishIngredient.getDish().getToDoDishList()){
+                    safeQuantity -= dishIngredient.getQuantityGrams();
+            }
         }
     }
 }

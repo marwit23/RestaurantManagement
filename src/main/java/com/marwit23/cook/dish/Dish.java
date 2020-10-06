@@ -1,5 +1,7 @@
 package com.marwit23.cook.dish;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.marwit23.cook.todo.ToDoDish;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +17,10 @@ public class Dish {
     private long dishId;
     @Column(unique = true)
     private String dishName;
+
+    @OneToMany(mappedBy = "dish")
+    @JsonIgnore
+    private List<ToDoDish> toDoDishList;
 
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL)
     private List<DishIngredient> dishIngredients;

@@ -1,6 +1,7 @@
 package com.marwit23.cook.todo;
 
 import com.marwit23.cook._exception.EntityNotFoundException;
+import com.marwit23.cook.dish.DishIngredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,9 +38,17 @@ public class ToDoDishServiceImpl implements ToDoDishService {
         return theToDoDish;
     }
 
+    // ! quantity validation
     @Override
     public void save(ToDoDish theToDoDish) {
-        toDoDishRepository.save(theToDoDish);
+        for(DishIngredient dishIngredient: theToDoDish.getDish().getDishIngredients()){
+            if(dishIngredient.getQuantityGrams()
+                    > dishIngredient.getIngredient().getSafeQuantity()){
+                throw new RuntimeException
+                        ("Cannot create this order. Ingredient: " + dishIngredient + " doesn't have sufficient quantity.");
+            }
+            else toDoDishRepository.save(theToDoDish);
+        }
     }
 
     @Override
