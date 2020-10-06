@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.marwit23.cook._constants.IngredientCategory;
 import com.marwit23.cook.delivery.DeliveryItem;
 import com.marwit23.cook.dish.DishIngredient;
+import com.marwit23.cook.todo.ToDoDish;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
