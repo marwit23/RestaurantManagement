@@ -1,4 +1,4 @@
-INSERT INTO `ingredient` (`ingredient_category`, `ingredient_name`, `shelf_life`) VALUES
+INSERT INTO ingredient (ingredient_category, ingredient_name, shelf_life) VALUES
 ('GRAINS', 'Flour', '180'),
 ('GRAINS', 'Bread', '5'),
 ('GRAINS', 'Pasta', '180'),
@@ -20,11 +20,11 @@ INSERT INTO `ingredient` (`ingredient_category`, `ingredient_name`, `shelf_life`
 ('SPICES', 'Garlic Powder', '180'),
 ('SPICES', 'Oregano Dried', '180'),
 ('SPICES', 'Chili Powder', '180');
-INSERT INTO `delivery` (`delivered_date`, `ordered_date`) VALUES
+INSERT INTO delivery (delivered_date, ordered_date) VALUES
 ('2020-10-04', '2020-10-04'),
 ('2020-10-05', '2020-10-05'),
 ('2020-10-06', '2020-10-06');
-INSERT INTO `delivery_item` (`price_per_kg`, `quantity_grams`, `delivery_id`, `ingredient_id`) VALUES
+INSERT INTO delivery_item (price_per_kg, quantity_grams, delivery_id, ingredient_id) VALUES
 ('1.89', '5000', '1', '1'),
 ('2.19', '2000', '1', '3'),
 ('3.25', '2000', '1', '4'),
@@ -43,12 +43,12 @@ INSERT INTO `delivery_item` (`price_per_kg`, `quantity_grams`, `delivery_id`, `i
 ('16.99', '500', '3', '15'),
 ('10.99', '750', '3', '18'),
 ('21.99', '50', '3', '21');
-INSERT INTO `dish` (`dish_name`) VALUES
+INSERT INTO dish (dish_name) VALUES
 ('Bacon Sandwich'),
 ('French Fries'),
 ('Pan Seared Steak'),
 ('Chicken Pasta');
-INSERT INTO `dish_ingredient` (`quantity_grams`, `dish_id`, `ingredient_id`) VALUES
+INSERT INTO dish_ingredient (quantity_grams, dish_id, ingredient_id) VALUES
 ('50', '1', '2'),
 ('25', '1', '16'),
 ('50', '1', '15'),
@@ -65,7 +65,7 @@ INSERT INTO `dish_ingredient` (`quantity_grams`, `dish_id`, `ingredient_id`) VAL
 ('30', '4', '18'),
 ('3', '4', '19'),
 ('5', '4', '20');
-INSERT INTO `to_do_dish` (`dish_id`) VALUES
+INSERT INTO to_do_dish (dish_id) VALUES
 ('1'),
 ('2'),
 ('3'),
