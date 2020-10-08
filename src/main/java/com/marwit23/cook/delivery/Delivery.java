@@ -38,7 +38,6 @@ public class Delivery {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate deliveredDate;
 
-    @NotNull
     @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<DeliveryItem> deliveryItems;
 
