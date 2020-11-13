@@ -94,7 +94,7 @@ public class Ingredient {
             }
         }
 
-        expiredQuantity = (orderedQuantity - safeQuantity);
+        expiredQuantity = (totalQuantity - safeQuantity);
 
     }
 }
