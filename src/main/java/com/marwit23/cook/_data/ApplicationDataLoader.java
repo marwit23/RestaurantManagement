@@ -14,6 +14,7 @@ import com.marwit23.cook.todo.ToDoDish;
 import com.marwit23.cook.todo.ToDoDishRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class ApplicationDataLoader implements ApplicationRunner {
+public class ApplicationDataLoader implements CommandLineRunner {
 
     private IngredientRepository ingredientRepository;
     private DeliveryRepository deliveryRepository;
@@ -36,90 +37,91 @@ public class ApplicationDataLoader implements ApplicationRunner {
         this.toDoDishRepository = toDoDishRepository;
     }
 
-
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(String... args) throws Exception {
+
+//    @Override
+//    public void run(ApplicationArguments args) throws Exception {
 
         // * INGREDIENTS -----------------------------------------------------------------------------------------------
 
-        ingredientRepository.save(new Ingredient("Flour",IngredientCategory.GRAINS, 180));
+        ingredientRepository.save(new Ingredient("Flour", IngredientCategory.GRAINS, 180));
         ingredientRepository.save(new Ingredient("Bread", IngredientCategory.GRAINS, 5));
         ingredientRepository.save(new Ingredient("Pasta", IngredientCategory.GRAINS, 180));
-        ingredientRepository.save(new Ingredient("Oats",IngredientCategory.GRAINS, 90));
+        ingredientRepository.save(new Ingredient("Oats", IngredientCategory.GRAINS, 90));
         ingredientRepository.save(new Ingredient("Rice", IngredientCategory.GRAINS, 180));
         ingredientRepository.save(new Ingredient("Couscous", IngredientCategory.GRAINS, 180));
-        ingredientRepository.save(new Ingredient("Breadcrumbs",IngredientCategory.GRAINS, 30));
+        ingredientRepository.save(new Ingredient("Breadcrumbs", IngredientCategory.GRAINS, 30));
         ingredientRepository.save(new Ingredient("Buckwheat", IngredientCategory.GRAINS, 180));
         ingredientRepository.save(new Ingredient("Cornmeal", IngredientCategory.GRAINS, 180));
         ingredientRepository.save(new Ingredient("Rye bread", IngredientCategory.GRAINS, 5));
 
-        ingredientRepository.save(new Ingredient("Apple",IngredientCategory.FRUITS, 30));
-        ingredientRepository.save(new Ingredient("Orange",IngredientCategory.FRUITS, 30));
-        ingredientRepository.save(new Ingredient("Banana",IngredientCategory.FRUITS, 5));
-        ingredientRepository.save(new Ingredient("Watermelon",IngredientCategory.FRUITS, 3));
-        ingredientRepository.save(new Ingredient("Pear",IngredientCategory.FRUITS, 14));
-        ingredientRepository.save(new Ingredient("Lemon",IngredientCategory.FRUITS, 60));
-        ingredientRepository.save(new Ingredient("Avocado",IngredientCategory.FRUITS, 2));
-        ingredientRepository.save(new Ingredient("Mango",IngredientCategory.FRUITS, 10));
-        ingredientRepository.save(new Ingredient("Plum",IngredientCategory.FRUITS, 20));
-        ingredientRepository.save(new Ingredient("Cherry",IngredientCategory.FRUITS, 3));
+        ingredientRepository.save(new Ingredient("Apple", IngredientCategory.FRUITS, 30));
+        ingredientRepository.save(new Ingredient("Orange", IngredientCategory.FRUITS, 30));
+        ingredientRepository.save(new Ingredient("Banana", IngredientCategory.FRUITS, 5));
+        ingredientRepository.save(new Ingredient("Watermelon", IngredientCategory.FRUITS, 3));
+        ingredientRepository.save(new Ingredient("Pear", IngredientCategory.FRUITS, 14));
+        ingredientRepository.save(new Ingredient("Lemon", IngredientCategory.FRUITS, 60));
+        ingredientRepository.save(new Ingredient("Avocado", IngredientCategory.FRUITS, 2));
+        ingredientRepository.save(new Ingredient("Mango", IngredientCategory.FRUITS, 10));
+        ingredientRepository.save(new Ingredient("Plum", IngredientCategory.FRUITS, 20));
+        ingredientRepository.save(new Ingredient("Cherry", IngredientCategory.FRUITS, 3));
 
-        ingredientRepository.save(new Ingredient("Milk",IngredientCategory.DAIRY, 14));
-        ingredientRepository.save(new Ingredient("Cheddar cheese",IngredientCategory.DAIRY, 14));
-        ingredientRepository.save(new Ingredient("Cottage cheese",IngredientCategory.DAIRY, 7));
-        ingredientRepository.save(new Ingredient("Buttermilk",IngredientCategory.DAIRY, 7));
-        ingredientRepository.save(new Ingredient("Yoghurt",IngredientCategory.DAIRY, 7));
-        ingredientRepository.save(new Ingredient("Cream",IngredientCategory.DAIRY, 5));
-        ingredientRepository.save(new Ingredient("Sour cream",IngredientCategory.DAIRY, 7));
-        ingredientRepository.save(new Ingredient("Camembert",IngredientCategory.DAIRY, 3));
-        ingredientRepository.save(new Ingredient("Goat cheese",IngredientCategory.DAIRY, 14));
-        ingredientRepository.save(new Ingredient("Mozzarella",IngredientCategory.DAIRY, 30));
+        ingredientRepository.save(new Ingredient("Milk", IngredientCategory.DAIRY, 14));
+        ingredientRepository.save(new Ingredient("Cheddar cheese", IngredientCategory.DAIRY, 14));
+        ingredientRepository.save(new Ingredient("Cottage cheese", IngredientCategory.DAIRY, 7));
+        ingredientRepository.save(new Ingredient("Buttermilk", IngredientCategory.DAIRY, 7));
+        ingredientRepository.save(new Ingredient("Yoghurt", IngredientCategory.DAIRY, 7));
+        ingredientRepository.save(new Ingredient("Cream", IngredientCategory.DAIRY, 5));
+        ingredientRepository.save(new Ingredient("Sour cream", IngredientCategory.DAIRY, 7));
+        ingredientRepository.save(new Ingredient("Camembert", IngredientCategory.DAIRY, 3));
+        ingredientRepository.save(new Ingredient("Goat cheese", IngredientCategory.DAIRY, 14));
+        ingredientRepository.save(new Ingredient("Mozzarella", IngredientCategory.DAIRY, 30));
 
-        ingredientRepository.save(new Ingredient("Tomato",IngredientCategory.VEGETABLES, 7));
-        ingredientRepository.save(new Ingredient("Cucumber",IngredientCategory.VEGETABLES, 7));
-        ingredientRepository.save(new Ingredient("Onion",IngredientCategory.VEGETABLES, 60));
-        ingredientRepository.save(new Ingredient("Potato",IngredientCategory.VEGETABLES, 7));
-        ingredientRepository.save(new Ingredient("Garlic cloves",IngredientCategory.VEGETABLES, 60));
-        ingredientRepository.save(new Ingredient("Cabbage",IngredientCategory.VEGETABLES, 30));
-        ingredientRepository.save(new Ingredient("Cauliflower",IngredientCategory.VEGETABLES, 7));
-        ingredientRepository.save(new Ingredient("Iceberg lettuce",IngredientCategory.VEGETABLES, 3));
-        ingredientRepository.save(new Ingredient("Carrot",IngredientCategory.VEGETABLES, 14));
-        ingredientRepository.save(new Ingredient("Mushrooms",IngredientCategory.VEGETABLES, 7));
+        ingredientRepository.save(new Ingredient("Tomato", IngredientCategory.VEGETABLES, 7));
+        ingredientRepository.save(new Ingredient("Cucumber", IngredientCategory.VEGETABLES, 7));
+        ingredientRepository.save(new Ingredient("Onion", IngredientCategory.VEGETABLES, 60));
+        ingredientRepository.save(new Ingredient("Potato", IngredientCategory.VEGETABLES, 7));
+        ingredientRepository.save(new Ingredient("Garlic cloves", IngredientCategory.VEGETABLES, 60));
+        ingredientRepository.save(new Ingredient("Cabbage", IngredientCategory.VEGETABLES, 30));
+        ingredientRepository.save(new Ingredient("Cauliflower", IngredientCategory.VEGETABLES, 7));
+        ingredientRepository.save(new Ingredient("Iceberg lettuce", IngredientCategory.VEGETABLES, 3));
+        ingredientRepository.save(new Ingredient("Carrot", IngredientCategory.VEGETABLES, 14));
+        ingredientRepository.save(new Ingredient("Mushrooms", IngredientCategory.VEGETABLES, 7));
 
-        ingredientRepository.save(new Ingredient("Chicken breast",IngredientCategory.MEAT, 3));
-        ingredientRepository.save(new Ingredient("Ribeye steak",IngredientCategory.MEAT, 21));
-        ingredientRepository.save(new Ingredient("Pork loin",IngredientCategory.MEAT, 5));
-        ingredientRepository.save(new Ingredient("Sausage",IngredientCategory.MEAT, 30));
-        ingredientRepository.save(new Ingredient("Pork mince",IngredientCategory.MEAT, 3));
-        ingredientRepository.save(new Ingredient("Beef mince",IngredientCategory.MEAT, 3));
-        ingredientRepository.save(new Ingredient("Liver",IngredientCategory.MEAT, 2));
-        ingredientRepository.save(new Ingredient("Bacon",IngredientCategory.MEAT, 30));
-        ingredientRepository.save(new Ingredient("Ham",IngredientCategory.MEAT, 7));
-        ingredientRepository.save(new Ingredient("Salami",IngredientCategory.MEAT, 30));
+        ingredientRepository.save(new Ingredient("Chicken breast", IngredientCategory.MEAT, 3));
+        ingredientRepository.save(new Ingredient("Ribeye steak", IngredientCategory.MEAT, 21));
+        ingredientRepository.save(new Ingredient("Pork loin", IngredientCategory.MEAT, 5));
+        ingredientRepository.save(new Ingredient("Sausage", IngredientCategory.MEAT, 30));
+        ingredientRepository.save(new Ingredient("Pork mince", IngredientCategory.MEAT, 3));
+        ingredientRepository.save(new Ingredient("Beef mince", IngredientCategory.MEAT, 3));
+        ingredientRepository.save(new Ingredient("Liver", IngredientCategory.MEAT, 2));
+        ingredientRepository.save(new Ingredient("Bacon", IngredientCategory.MEAT, 30));
+        ingredientRepository.save(new Ingredient("Ham", IngredientCategory.MEAT, 7));
+        ingredientRepository.save(new Ingredient("Salami", IngredientCategory.MEAT, 30));
 
-        ingredientRepository.save(new Ingredient("Olive oil",IngredientCategory.FATS, 180));
-        ingredientRepository.save(new Ingredient("Canola oil",IngredientCategory.FATS, 180));
-        ingredientRepository.save(new Ingredient("Butter",IngredientCategory.FATS, 30));
-        ingredientRepository.save(new Ingredient("Lard",IngredientCategory.FATS, 30));
-        ingredientRepository.save(new Ingredient("Duck fat",IngredientCategory.FATS, 180));
-        ingredientRepository.save(new Ingredient("Coconut oil",IngredientCategory.FATS, 180));
-        ingredientRepository.save(new Ingredient("Margarine",IngredientCategory.FATS, 180));
-        ingredientRepository.save(new Ingredient("Sunflower oil",IngredientCategory.FATS, 180));
-        ingredientRepository.save(new Ingredient("Sesame oil",IngredientCategory.FATS, 180));
-        ingredientRepository.save(new Ingredient("Truffle oil",IngredientCategory.FATS, 180));
+        ingredientRepository.save(new Ingredient("Olive oil", IngredientCategory.FATS, 180));
+        ingredientRepository.save(new Ingredient("Canola oil", IngredientCategory.FATS, 180));
+        ingredientRepository.save(new Ingredient("Butter", IngredientCategory.FATS, 30));
+        ingredientRepository.save(new Ingredient("Lard", IngredientCategory.FATS, 30));
+        ingredientRepository.save(new Ingredient("Duck fat", IngredientCategory.FATS, 180));
+        ingredientRepository.save(new Ingredient("Coconut oil", IngredientCategory.FATS, 180));
+        ingredientRepository.save(new Ingredient("Margarine", IngredientCategory.FATS, 180));
+        ingredientRepository.save(new Ingredient("Sunflower oil", IngredientCategory.FATS, 180));
+        ingredientRepository.save(new Ingredient("Sesame oil", IngredientCategory.FATS, 180));
+        ingredientRepository.save(new Ingredient("Truffle oil", IngredientCategory.FATS, 180));
 
 
-        ingredientRepository.save(new Ingredient("Salt",IngredientCategory.SPICES, 180));
-        ingredientRepository.save(new Ingredient("Sugar",IngredientCategory.SPICES, 180));
-        ingredientRepository.save(new Ingredient("Vinegar",IngredientCategory.SPICES, 180));
-        ingredientRepository.save(new Ingredient("Black pepper",IngredientCategory.SPICES, 180));
-        ingredientRepository.save(new Ingredient("Garlic powder",IngredientCategory.SPICES, 180));
-        ingredientRepository.save(new Ingredient("Chili powder",IngredientCategory.SPICES, 180));
-        ingredientRepository.save(new Ingredient("Thyme",IngredientCategory.SPICES, 180));
-        ingredientRepository.save(new Ingredient("Oregano",IngredientCategory.SPICES, 180));
-        ingredientRepository.save(new Ingredient("Cinnamon powder",IngredientCategory.SPICES, 180));
-        ingredientRepository.save(new Ingredient("Nutmeg",IngredientCategory.SPICES, 180));
-
+        ingredientRepository.save(new Ingredient("Salt", IngredientCategory.SPICES, 180));
+        ingredientRepository.save(new Ingredient("Sugar", IngredientCategory.SPICES, 180));
+        ingredientRepository.save(new Ingredient("Vinegar", IngredientCategory.SPICES, 180));
+        ingredientRepository.save(new Ingredient("Black pepper", IngredientCategory.SPICES, 180));
+        ingredientRepository.save(new Ingredient("Garlic powder", IngredientCategory.SPICES, 180));
+        ingredientRepository.save(new Ingredient("Chili powder", IngredientCategory.SPICES, 180));
+        ingredientRepository.save(new Ingredient("Thyme", IngredientCategory.SPICES, 180));
+        ingredientRepository.save(new Ingredient("Oregano", IngredientCategory.SPICES, 180));
+        ingredientRepository.save(new Ingredient("Cinnamon powder", IngredientCategory.SPICES, 180));
+        ingredientRepository.save(new Ingredient("Nutmeg", IngredientCategory.SPICES, 180));
 
 
         // * DISHES-----------------------------------------------------------------------------------------------------
@@ -142,7 +144,7 @@ public class ApplicationDataLoader implements ApplicationRunner {
                 dishIngredient7
         );
         Dish dish1 = new Dish("Ribeye Steak with Mashed Potatoes", dishIngredientList1);
-        for (DishIngredient dishIngredient : dishIngredientList1){
+        for (DishIngredient dishIngredient : dishIngredientList1) {
             dishIngredient.setDish(dish1);
         }
         dishRepository.save(dish1);
@@ -166,7 +168,7 @@ public class ApplicationDataLoader implements ApplicationRunner {
                 dishIngredient18
         );
         Dish dish2 = new Dish("Spaghetti Bolognese", dishIngredientList2);
-        for (DishIngredient dishIngredient : dishIngredientList2){
+        for (DishIngredient dishIngredient : dishIngredientList2) {
             dishIngredient.setDish(dish2);
         }
         dishRepository.save(dish2);
@@ -188,7 +190,7 @@ public class ApplicationDataLoader implements ApplicationRunner {
                 dishIngredient27
         );
         Dish dish3 = new Dish("Penne Arrabiatta", dishIngredientList3);
-        for (DishIngredient dishIngredient : dishIngredientList3){
+        for (DishIngredient dishIngredient : dishIngredientList3) {
             dishIngredient.setDish(dish3);
         }
         dishRepository.save(dish3);
@@ -212,7 +214,7 @@ public class ApplicationDataLoader implements ApplicationRunner {
                 dishIngredient38
         );
         Dish dish4 = new Dish("Chicken salad", dishIngredientList4);
-        for (DishIngredient dishIngredient : dishIngredientList4){
+        for (DishIngredient dishIngredient : dishIngredientList4) {
             dishIngredient.setDish(dish4);
         }
         dishRepository.save(dish4);
@@ -234,7 +236,7 @@ public class ApplicationDataLoader implements ApplicationRunner {
                 dishIngredient47
         );
         Dish dish5 = new Dish("French Onion Soup", dishIngredientList5);
-        for (DishIngredient dishIngredient : dishIngredientList5){
+        for (DishIngredient dishIngredient : dishIngredientList5) {
             dishIngredient.setDish(dish5);
         }
         dishRepository.save(dish5);
@@ -256,7 +258,7 @@ public class ApplicationDataLoader implements ApplicationRunner {
                 dishIngredient57
         );
         Dish dish6 = new Dish("Russian Pierogi", dishIngredientList6);
-        for (DishIngredient dishIngredient : dishIngredientList6){
+        for (DishIngredient dishIngredient : dishIngredientList6) {
             dishIngredient.setDish(dish6);
         }
         dishRepository.save(dish6);
@@ -274,7 +276,7 @@ public class ApplicationDataLoader implements ApplicationRunner {
                 dishIngredient65
         );
         Dish dish7 = new Dish("Steak Tartare", dishIngredientList7);
-        for (DishIngredient dishIngredient : dishIngredientList7){
+        for (DishIngredient dishIngredient : dishIngredientList7) {
             dishIngredient.setDish(dish7);
         }
         dishRepository.save(dish7);
@@ -296,7 +298,7 @@ public class ApplicationDataLoader implements ApplicationRunner {
                 dishIngredient77
         );
         Dish dish8 = new Dish("Breaded Pork Chop with French Fries", dishIngredientList8);
-        for (DishIngredient dishIngredient : dishIngredientList8){
+        for (DishIngredient dishIngredient : dishIngredientList8) {
             dishIngredient.setDish(dish8);
         }
         dishRepository.save(dish8);
@@ -318,7 +320,7 @@ public class ApplicationDataLoader implements ApplicationRunner {
                 dishIngredient87
         );
         Dish dish9 = new Dish("Chicken Breast in Mushroom Sauce", dishIngredientList9);
-        for (DishIngredient dishIngredient : dishIngredientList9){
+        for (DishIngredient dishIngredient : dishIngredientList9) {
             dishIngredient.setDish(dish9);
         }
         dishRepository.save(dish9);
@@ -334,11 +336,10 @@ public class ApplicationDataLoader implements ApplicationRunner {
                 dishIngredient94
         );
         Dish dish10 = new Dish("Grilled Sausage with Onion", dishIngredientList10);
-        for (DishIngredient dishIngredient : dishIngredientList10){
+        for (DishIngredient dishIngredient : dishIngredientList10) {
             dishIngredient.setDish(dish10);
         }
         dishRepository.save(dish10);
-
 
 
         // * DELIVERIES-------------------------------------------------------------------------------------------------
@@ -539,7 +540,6 @@ public class ApplicationDataLoader implements ApplicationRunner {
         deliveryRepository.save(delivery3);
 
 
-
         // * TO-DO-DISHES---------------------------------------------------------------------------------------------------
 
         ToDoDish toDoDish1 = new ToDoDish(
@@ -567,3 +567,4 @@ public class ApplicationDataLoader implements ApplicationRunner {
         toDoDishRepository.save(toDoDish3);
     }
 }
+
