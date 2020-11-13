@@ -15,12 +15,13 @@ import com.marwit23.cook.todo.ToDoDishRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+@Service
 public class ApplicationDataLoader implements ApplicationRunner {
 
     private IngredientRepository ingredientRepository;
