@@ -1,11 +1,11 @@
 package com.marwit23.cook._constants;
 
 public enum IngredientCategory {
-    MEAT("meat"),
     GRAINS("grains"),
     DAIRY("dairy"),
     VEGETABLES("vegetables"),
     FRUITS("fruits"),
+    MEAT("meat"),
     FATS("fats"),
     SPICES("spices");
 

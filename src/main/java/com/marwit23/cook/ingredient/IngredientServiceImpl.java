@@ -22,7 +22,12 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public List<Ingredient> findAll(Integer pageNo, Integer pageSize, String sortBy) {
+    public List<Ingredient> findAll() {
+        return ingredientRepository.findAll();
+    }
+
+    @Override
+    public List<Ingredient> findAllWithParams(Integer pageNo, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
         Page<Ingredient> ingredientPage = ingredientRepository.findAll(pageable);
         return ingredientPage.getContent();
@@ -34,15 +39,6 @@ public class IngredientServiceImpl implements IngredientService {
         Ingredient theIngredient;
         if(result.isPresent()) theIngredient = result.get();
         else throw new EntityNotFoundException("ingredient", theId.toString());
-        return theIngredient;
-    }
-
-    @Override
-    public Ingredient findByName(String ingredientName) {
-        Optional<Ingredient> result = ingredientRepository.findByIngredientName(ingredientName);
-        Ingredient theIngredient;
-        if(result.isPresent()) theIngredient =result.get();
-        else throw new EntityNotFoundException("ingredient", ingredientName);
         return theIngredient;
     }
 

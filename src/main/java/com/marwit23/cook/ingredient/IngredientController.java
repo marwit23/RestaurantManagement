@@ -7,54 +7,67 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/api/ingredients")
 public class IngredientController {
 
     private IngredientService ingredientService;
+    private IngredientMapper ingredientMapper;
 
     @Autowired
-    public IngredientController(IngredientService ingredientService) {
+    public IngredientController(IngredientService ingredientService, IngredientMapper ingredientMapper) {
         this.ingredientService = ingredientService;
+        this.ingredientMapper = ingredientMapper;
     }
 
     @GetMapping
-    public List<Ingredient> findAll(
-            @RequestParam(defaultValue = "0") Integer pageNo,
-            @RequestParam(defaultValue = "25") Integer pageSize,
-            @RequestParam(defaultValue = "ingredientId") String sortBy) {
-        return ingredientService.findAll(pageNo, pageSize, sortBy);
+    public List<IngredientDTO> findAll(){
+        List<Ingredient> theIngredients = ingredientService.findAll();
+        return theIngredients.stream()
+                .map(ingredient -> ingredientMapper.convertToDto(ingredient))
+                .collect(Collectors.toList());
     }
+
+//    @GetMapping
+//    public List<Ingredient> findAllWithParams(
+//            @RequestParam(defaultValue = "0") Integer pageNo,
+//            @RequestParam(defaultValue = "25") Integer pageSize,
+//            @RequestParam(defaultValue = "ingredientId") String sortBy) {
+//        return ingredientService.findAllWithParams(pageNo, pageSize, sortBy);
+//    }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public Ingredient addIngredient(@RequestBody Ingredient theIngredient) {
+    public IngredientDTO addIngredient(@RequestBody IngredientDTO ingredientDto) {
+        Ingredient theIngredient = ingredientMapper.convertToEntity(ingredientDto);
         ingredientService.save(theIngredient);
-        return theIngredient;
+        return ingredientMapper.convertToDto(theIngredient);
     }
 
     @GetMapping("/{ingredientId}")
-    public Ingredient getIngredient(@PathVariable Long ingredientId) {
+    public IngredientDTO getIngredient(@PathVariable Long ingredientId) {
         Ingredient theIngredient = ingredientService.findById(ingredientId);
+        IngredientDTO theIngredientDTO = ingredientMapper.convertToDto(theIngredient);
         if (theIngredient == null) throw new EntityNotFoundException("ingredient", ingredientId.toString());
-        return theIngredient;
+        return theIngredientDTO;
     }
 
     @PutMapping("/{ingredientId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Ingredient updateIngredient(@Valid @RequestBody Ingredient theIngredient, @PathVariable Long ingredientId) {
+    public IngredientDTO updateIngredient(@Valid @RequestBody IngredientDTO ingredientDto, @PathVariable Long ingredientId) {
+        Ingredient theIngredient = ingredientMapper.convertToEntity(ingredientDto);
         theIngredient.setIngredientId(ingredientId);
         ingredientService.save(theIngredient);
-        return theIngredient;
+        return ingredientMapper.convertToDto(theIngredient);
     }
 
     @DeleteMapping("/{ingredientId}")
     @PreAuthorize("hasRole('ADMIN')")
     public String deleteIngredient(@PathVariable Long ingredientId) {
-        Ingredient tempIngredient = ingredientService.findById(ingredientId);
-        if (tempIngredient == null) throw new EntityNotFoundException("ingredient", ingredientId.toString());
+        Ingredient theIngredient = ingredientService.findById(ingredientId);
+        if (theIngredient == null) throw new EntityNotFoundException("ingredient", ingredientId.toString());
         ingredientService.deleteById(ingredientId);
         return "Deleted ingredient id - " + ingredientId;
     }

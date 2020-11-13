@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.marwit23.cook._constants.IngredientCategory;
 import com.marwit23.cook.delivery.DeliveryItem;
+import com.marwit23.cook.dish.Dish;
 import com.marwit23.cook.dish.DishIngredient;
 import com.marwit23.cook.todo.ToDoDish;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
@@ -20,6 +23,8 @@ import static com.marwit23.cook._constants.DeliveryStatus.ORDERED;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ingredient {
 
     @Id
@@ -39,41 +44,47 @@ public class Ingredient {
     private int shelfLife;
 
     @OneToMany(mappedBy = "ingredient")
-    @JsonIgnore
     private List<DishIngredient> dishIngredients;
 
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<DeliveryItem> deliveryItems;
 
     @Transient
-    @JsonProperty
     private int totalQuantity;
 
     @Transient
-    @JsonProperty
-    private int orderedQuantity;
+    private int safeQuantity;
 
     @Transient
-    @JsonProperty
-    private int safeQuantity;
+    private int expiredQuantity;
+
+    @Transient
+    private int orderedQuantity;
+
+
+    public Ingredient(String ingredientName, IngredientCategory ingredientCategory, int shelfLife) {
+        this.ingredientName = ingredientName;
+        this.ingredientCategory = ingredientCategory;
+        this.shelfLife = shelfLife;
+    }
 
     @PostLoad
     protected void onLoad() {
         updateQuantity();
     }
 
+
     public void updateQuantity() {
         for (DeliveryItem deliveryItem : deliveryItems) {
             if (deliveryItem.delivery.getDeliveryStatus() == ORDERED) {
-                orderedQuantity = orderedQuantity + deliveryItem.getQuantityGrams();
+                orderedQuantity = orderedQuantity + deliveryItem.getOrderedQuantity();
             } else if (deliveryItem.delivery.getDeliveryStatus() == DELIVERED) {
-                totalQuantity = totalQuantity + deliveryItem.getQuantityGrams();
+                totalQuantity = totalQuantity + deliveryItem.getDeliveredQuantity();
             }
         }
         for (DeliveryItem deliveryItem : deliveryItems) {
             if (deliveryItem.isSafeToEat()) {
-                safeQuantity = safeQuantity + deliveryItem.getQuantityGrams();
+                safeQuantity = safeQuantity + deliveryItem.getDeliveredQuantity();
             }
         }
 
@@ -82,5 +93,8 @@ public class Ingredient {
                     safeQuantity -= dishIngredient.getQuantityGrams();
             }
         }
+
+        expiredQuantity = (orderedQuantity - safeQuantity);
+
     }
 }

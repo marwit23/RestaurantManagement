@@ -1,7 +1,7 @@
 package com.marwit23.cook._constants;
 
 public enum ToDoStatus {
-    TO_DO("pending"),
+    PENDING("pending"),
     DONE("done"),
     CANCELLED("cancelled");
 

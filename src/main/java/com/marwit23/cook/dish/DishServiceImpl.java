@@ -22,7 +22,12 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public List<Dish> findAll(Integer pageNo, Integer pageSize, String sortBy) {
+    public List<Dish> findAll() {
+        return dishRepository.findAll();
+    }
+
+    @Override
+    public List<Dish> findAllWithParams(Integer pageNo, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
         Page<Dish> dishPage = dishRepository.findAll(pageable);
         return dishPage.getContent();

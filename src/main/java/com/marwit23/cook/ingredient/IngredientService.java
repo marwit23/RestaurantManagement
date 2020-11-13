@@ -3,9 +3,9 @@ package com.marwit23.cook.ingredient;
 import java.util.List;
 
 public interface IngredientService {
-    List<Ingredient> findAll(Integer pageNo, Integer pageSize, String sortBy);
-    Ingredient findById(Long theId);
-    Ingredient findByName(String ingredientName);
-    void save(Ingredient theIngredient);
-    void deleteById(Long theId);
+    public List<Ingredient> findAll();
+    public List<Ingredient> findAllWithParams(Integer pageNo, Integer pageSize, String sortBy);
+    public Ingredient findById(Long theId);
+    public void save(Ingredient theIngredient);
+    public void deleteById(Long theId);
 }

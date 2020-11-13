@@ -22,7 +22,12 @@ public class DeliveryServiceImpl implements DeliveryService{
     }
 
     @Override
-    public List<Delivery> findAll(Integer pageNo, Integer pageSize, String sortBy) {
+    public List<Delivery> findAll() {
+        return deliveryRepository.findAll();
+    }
+
+    @Override
+    public List<Delivery> findAllWithParams(Integer pageNo, Integer pageSize, String sortBy) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
         Page<Delivery> deliveryPage = deliveryRepository.findAll(pageable);
         return deliveryPage.getContent();
@@ -38,9 +43,7 @@ public class DeliveryServiceImpl implements DeliveryService{
     }
 
     @Override
-    public void save(Delivery theDelivery) {
-        deliveryRepository.save(theDelivery);
-    }
+    public void save(Delivery theDelivery) { deliveryRepository.save(theDelivery); }
 
     @Override
     public void deleteById(Long deliveryId) {

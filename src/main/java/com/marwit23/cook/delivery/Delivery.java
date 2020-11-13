@@ -3,7 +3,9 @@ package com.marwit23.cook.delivery;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marwit23.cook._constants.DeliveryStatus;
 import com.marwit23.cook._exception.DateNotValidException;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,6 +21,8 @@ import static com.marwit23.cook._constants.DeliveryStatus.ORDERED;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Delivery {
 
@@ -38,12 +42,15 @@ public class Delivery {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate deliveredDate;
 
-    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @NotNull
+    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DeliveryItem> deliveryItems;
 
     @PrePersist
     protected void onCreate() {
-        setOrderedDate(LocalDate.now());
+        if (orderedDate == null) {
+            setOrderedDate(LocalDate.now());
+        }
         checkDeliveredDate();
     }
 
@@ -54,7 +61,7 @@ public class Delivery {
 
     public DeliveryStatus getDeliveryStatus() {
         DeliveryStatus deliveryStatus;
-        if (deliveredDate == null){
+        if (deliveredDate == null) {
             deliveryStatus = ORDERED;
         } else {
             deliveryStatus = DELIVERED;
@@ -64,13 +71,15 @@ public class Delivery {
 
     public void checkDeliveredDate() {
 
-        if (deliveredDate!= null && deliveredDate.isBefore(orderedDate)) throw new DateNotValidException();
+        if (deliveredDate != null && deliveredDate.isBefore(orderedDate)) throw new DateNotValidException();
     }
 
     public void setDeliveryItems(List<DeliveryItem> deliveryItems) {
         this.deliveryItems = deliveryItems;
-        for(DeliveryItem deliveryItem: this.deliveryItems) {
-            deliveryItem.setDelivery(this);
+        if (deliveryItems != null) {
+            for (DeliveryItem deliveryItem : deliveryItems) {
+                deliveryItem.setDelivery(this);
+            }
         }
     }
 }

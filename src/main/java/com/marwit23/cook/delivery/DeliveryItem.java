@@ -1,44 +1,54 @@
 package com.marwit23.cook.delivery;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.marwit23.cook.ingredient.Ingredient;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class DeliveryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
     private long deliveryItemId;
 
     @ManyToOne
     @JoinColumn(name = "ingredientId")
-    @JsonIgnoreProperties({
-            "ingredientCategory",
-            "dishIngredients",
-            "shelfLife",
-            "deliveryItems",
-    })
     private Ingredient ingredient;
-    private int quantityGrams;
-    private BigDecimal pricePerKg;
+    private int orderedQuantity;
+    private int deliveredQuantity;
+    private Double pricePerKg;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deliveryId")
-    @JsonIgnore
     public Delivery delivery;
 
     @Transient
     private boolean isSafeToEat;
+
+    public DeliveryItem(Ingredient ingredient, int orderedQuantity, Double pricePerKg, Delivery delivery) {
+        this.ingredient = ingredient;
+        this.orderedQuantity = orderedQuantity;
+        this.pricePerKg = pricePerKg;
+        this.delivery = delivery;
+    }
+
+    public DeliveryItem(Ingredient ingredient, int orderedQuantity, int deliveredQuantity, Double pricePerKg, Delivery delivery) {
+        this.ingredient = ingredient;
+        this.orderedQuantity = orderedQuantity;
+        this.deliveredQuantity = deliveredQuantity;
+        this.pricePerKg = pricePerKg;
+        this.delivery = delivery;
+    }
+
 
     @PostLoad
     protected void onLoad() {
