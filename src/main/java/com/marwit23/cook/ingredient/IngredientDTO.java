@@ -11,7 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class IngredientDTO {
-    private long ingredientId;
+
+    private long id;
     private String ingredientName;
     private IngredientCategory ingredientCategory;
     private int shelfLife;

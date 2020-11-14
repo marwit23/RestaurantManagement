@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DeliveryItemDTO {
 
-    private long deliveryItemId;
     private String ingredientName;
     private int orderedQuantity;
     private int deliveredQuantity;

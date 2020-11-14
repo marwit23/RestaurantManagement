@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DeliverySimpleDTO {
 
-    private long deliveryId;
+    private long id;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate orderedDate;
     private DeliveryStatus deliveryStatus;

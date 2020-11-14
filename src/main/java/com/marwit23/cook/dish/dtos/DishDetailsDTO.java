@@ -12,7 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DishDetailsDTO {
-    private long dishId;
+
+    private long id;
     private String dishName;
     private List<DishIngredientDTO> ingredients;
 }

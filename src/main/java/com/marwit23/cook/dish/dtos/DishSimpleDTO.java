@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DishSimpleDTO {
-    private long dishId;
+
+    private long id;
     private String dishName;
 }
