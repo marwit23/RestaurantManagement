@@ -41,7 +41,8 @@ public class IngredientController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public IngredientDTO addIngredient(@RequestBody IngredientDTO ingredientDto) {
-        Ingredient theIngredient = ingredientMapper.convertToEntity(ingredientDto);
+        Ingredient theIngredient = new Ingredient();
+        ingredientMapper.convertToEntity(ingredientDto, theIngredient);
         ingredientService.save(theIngredient);
         return ingredientMapper.convertToDto(theIngredient);
     }
@@ -57,7 +58,8 @@ public class IngredientController {
     @PutMapping("/{ingredientId}")
     @PreAuthorize("hasRole('ADMIN')")
     public IngredientDTO updateIngredient(@Valid @RequestBody IngredientDTO ingredientDto, @PathVariable Long ingredientId) {
-        Ingredient theIngredient = ingredientMapper.convertToEntity(ingredientDto);
+        Ingredient theIngredient = ingredientService.findById(ingredientId);
+        ingredientMapper.convertToEntity(ingredientDto, theIngredient);
         theIngredient.setIngredientId(ingredientId);
         ingredientService.save(theIngredient);
         return ingredientMapper.convertToDto(theIngredient);

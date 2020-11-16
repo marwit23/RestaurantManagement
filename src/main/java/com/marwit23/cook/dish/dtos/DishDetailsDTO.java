@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DishDetailsDTO {
 
-    private long id;
+    private long dishId;
     private String dishName;
     private List<DishIngredientDTO> ingredients;
 }

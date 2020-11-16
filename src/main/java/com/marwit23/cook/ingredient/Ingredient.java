@@ -1,10 +1,7 @@
 package com.marwit23.cook.ingredient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.marwit23.cook._constants.IngredientCategory;
 import com.marwit23.cook.delivery.DeliveryItem;
-import com.marwit23.cook.dish.Dish;
 import com.marwit23.cook.dish.DishIngredient;
 import com.marwit23.cook.todo.ToDoDish;
 import lombok.AllArgsConstructor;
@@ -76,9 +73,9 @@ public class Ingredient {
 
     public void updateQuantity() {
         for (DeliveryItem deliveryItem : deliveryItems) {
-            if (deliveryItem.delivery.getDeliveryStatus() == ORDERED) {
+            if (deliveryItem.getDelivery().getDeliveryStatus() == ORDERED) {
                 orderedQuantity = orderedQuantity + deliveryItem.getOrderedQuantity();
-            } else if (deliveryItem.delivery.getDeliveryStatus() == DELIVERED) {
+            } else if (deliveryItem.getDelivery().getDeliveryStatus() == DELIVERED) {
                 totalQuantity = totalQuantity + deliveryItem.getDeliveredQuantity();
             }
         }

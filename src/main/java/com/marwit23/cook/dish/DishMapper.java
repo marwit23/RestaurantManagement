@@ -50,26 +50,11 @@ public class DishMapper {
             DishIngredientDTO tempDishIngredientDTO = dishDetailsDTO.getIngredients().get(i);
             tempDishIngredient.setIngredient(ingredientRepository.findByIngredientName(tempDishIngredientDTO.getIngredientName()));
             tempDishIngredient.setQuantityGrams(tempDishIngredientDTO.getQuantityGrams());
+            tempDishIngredient.setDishIngredientId(tempDishIngredientDTO.getDishIngredientId());
             dishIngredients.add(tempDishIngredient);
         }
         dish.setDishIngredients(dishIngredients);
         return dish;
     }
 
-    Delivery convertToEntity(DeliveryDetailsDTO deliveryDetailsDTO) {
-        Delivery delivery = new Delivery();
-        delivery.setDeliveredDate(deliveryDetailsDTO.getDeliveredDate());
-        List<DeliveryItem> deliveryItems = new ArrayList<>();
-        for (int i = 0; i < deliveryDetailsDTO.getDeliveryItems().size(); i++) {
-            DeliveryItem tempDeliveryItem = new DeliveryItem();
-            DeliveryItemDTO tempDeliveryItemDto = deliveryDetailsDTO.getDeliveryItems().get(i);
-            tempDeliveryItem.setIngredient(ingredientRepository.findByIngredientName(tempDeliveryItemDto.getIngredientName()));
-            tempDeliveryItem.setOrderedQuantity(tempDeliveryItemDto.getOrderedQuantity());
-            tempDeliveryItem.setDeliveredQuantity(tempDeliveryItemDto.getDeliveredQuantity());
-            tempDeliveryItem.setPricePerKg(tempDeliveryItemDto.getPricePerKg());
-            deliveryItems.add(tempDeliveryItem);
-        }
-        delivery.setDeliveryItems(deliveryItems);
-        return delivery;
-    }
 }

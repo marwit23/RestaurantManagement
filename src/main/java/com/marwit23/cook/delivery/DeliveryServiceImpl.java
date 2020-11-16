@@ -23,7 +23,7 @@ public class DeliveryServiceImpl implements DeliveryService{
 
     @Override
     public List<Delivery> findAll() {
-        return deliveryRepository.findAll();
+        return deliveryRepository.findAll(Sort.by(Sort.Direction.DESC, "deliveryId"));
     }
 
     @Override

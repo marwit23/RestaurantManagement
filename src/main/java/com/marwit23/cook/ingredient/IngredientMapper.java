@@ -19,8 +19,7 @@ public class IngredientMapper {
         return ingredientDto;
     }
 
-    Ingredient convertToEntity(IngredientDTO ingredientDto) {
-        Ingredient ingredient = new Ingredient();
+    Ingredient convertToEntity(IngredientDTO ingredientDto, Ingredient ingredient) {
         ingredient.setIngredientName(ingredientDto.getIngredientName());
         ingredient.setIngredientCategory(ingredientDto.getIngredientCategory());
         ingredient.setShelfLife(ingredientDto.getShelfLife());

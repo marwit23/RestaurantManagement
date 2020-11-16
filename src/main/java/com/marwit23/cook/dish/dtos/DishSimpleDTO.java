@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DishSimpleDTO {
 
+    private long dishId;
     private long id;
     private String dishName;
 }

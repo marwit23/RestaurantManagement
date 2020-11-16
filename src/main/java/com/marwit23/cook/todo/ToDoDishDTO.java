@@ -10,7 +10,8 @@ import java.time.LocalDate;
 @Setter
 public class ToDoDishDTO {
 
-    private long id;
+    private long toDoDishId;
+    private long ingredientId;
     private String dishName;
     private LocalDate toDoDate;
     private ToDoStatus toDoStatus;

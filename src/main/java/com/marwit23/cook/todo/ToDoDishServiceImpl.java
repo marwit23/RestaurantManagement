@@ -1,9 +1,7 @@
 package com.marwit23.cook.todo;
 
 import com.marwit23.cook._exception.EntityNotFoundException;
-import com.marwit23.cook.dish.Dish;
 import com.marwit23.cook.dish.DishIngredient;
-import com.marwit23.cook.ingredient.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +24,7 @@ public class ToDoDishServiceImpl implements ToDoDishService {
 
     @Override
     public List<ToDoDish> findAll() {
-        return toDoDishRepository.findAll();
+        return toDoDishRepository.findAll(Sort.by(Sort.Direction.DESC, "toDoDishId"));
     }
 
     @Override

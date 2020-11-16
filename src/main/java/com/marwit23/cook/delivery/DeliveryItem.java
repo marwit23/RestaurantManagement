@@ -29,7 +29,7 @@ public class DeliveryItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deliveryId")
-    public Delivery delivery;
+    private Delivery delivery;
 
     @Transient
     private boolean isSafeToEat;

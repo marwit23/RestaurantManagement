@@ -52,6 +52,7 @@ public class DeliveryMapper {
             tempDeliveryItem.setOrderedQuantity(tempDeliveryItemDto.getOrderedQuantity());
             tempDeliveryItem.setDeliveredQuantity(tempDeliveryItemDto.getDeliveredQuantity());
             tempDeliveryItem.setPricePerKg(tempDeliveryItemDto.getPricePerKg());
+            tempDeliveryItem.setDeliveryItemId(tempDeliveryItemDto.getDeliveryItemId());
             deliveryItems.add(tempDeliveryItem);
         }
         delivery.setDeliveryItems(deliveryItems);
