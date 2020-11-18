@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.marwit23.cook._constants.DeliveryStatus.DELIVERED;
@@ -47,13 +48,13 @@ public class Ingredient {
     private List<DeliveryItem> deliveryItems;
 
     @Transient
-    private int totalQuantity;
-
-    @Transient
-    private int safeQuantity;
+    private int availableQuantity;
 
     @Transient
     private int expiredQuantity;
+
+    @Transient
+    private int usedQuantity;
 
     @Transient
     private int orderedQuantity;
@@ -70,28 +71,40 @@ public class Ingredient {
         updateQuantity();
     }
 
-
+    // * This is a fake update because all to-do's are new.
+    // * Real calculations would be too big to perform on load as @Transient property
+    // * Solution:
+    // * 1. Create ToDoDishItem entity
+    // * 2. Connect each ToDoDishItem with corresponding DeliveryItem
+    // * 3. Persist into database and set a cron job to check expiration date for each item every day
     public void updateQuantity() {
+
+        // * USED
+        for (DishIngredient dishIngredient : dishIngredients) {
+            for (ToDoDish toDoDish : dishIngredient.getDish().getToDoDishList()) {
+                usedQuantity += dishIngredient.getQuantityGrams();
+            }
+        }
+
+        // * ORDERED
         for (DeliveryItem deliveryItem : deliveryItems) {
             if (deliveryItem.getDelivery().getDeliveryStatus() == ORDERED) {
-                orderedQuantity = orderedQuantity + deliveryItem.getOrderedQuantity();
-            } else if (deliveryItem.getDelivery().getDeliveryStatus() == DELIVERED) {
-                totalQuantity = totalQuantity + deliveryItem.getDeliveredQuantity();
+                orderedQuantity += deliveryItem.getOrderedQuantity();
             }
         }
+
+        // *  AVAILABLE & EXPIRED
+        int safeQuantity = 0;
         for (DeliveryItem deliveryItem : deliveryItems) {
-            if (deliveryItem.isSafeToEat()) {
-                safeQuantity = safeQuantity + deliveryItem.getDeliveredQuantity();
-            }
+            if (deliveryItem.getDelivery().getDeliveryStatus() == DELIVERED)
+                if (deliveryItem.getDelivery().getDeliveredDate().plusDays(deliveryItem.getIngredient().getShelfLife()).isAfter(LocalDate.now().minusDays(1))
+                ) {
+                    safeQuantity += deliveryItem.getDeliveredQuantity();
+                } else {
+                    expiredQuantity += deliveryItem.getDeliveredQuantity();
+                }
         }
-
-        for(DishIngredient dishIngredient: dishIngredients){
-            for (ToDoDish toDoDish : dishIngredient.getDish().getToDoDishList()){
-                    safeQuantity -= dishIngredient.getQuantityGrams();
-            }
-        }
-
-        expiredQuantity = (totalQuantity - safeQuantity);
+        availableQuantity = safeQuantity - usedQuantity;
 
     }
 }

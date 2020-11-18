@@ -16,8 +16,9 @@ public class IngredientDTO {
     private String ingredientName;
     private IngredientCategory ingredientCategory;
     private int shelfLife;
-    private int safeQuantity;
+    private int availableQuantity;
     private int expiredQuantity;
+    private int usedQuantity;
     private int orderedQuantity;
 
 }

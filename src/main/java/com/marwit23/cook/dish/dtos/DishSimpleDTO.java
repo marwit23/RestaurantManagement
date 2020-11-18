@@ -12,6 +12,5 @@ import lombok.Setter;
 public class DishSimpleDTO {
 
     private long dishId;
-    private long id;
     private String dishName;
 }

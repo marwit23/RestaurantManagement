@@ -11,7 +11,6 @@ import java.time.LocalDate;
 public class ToDoDishDTO {
 
     private long toDoDishId;
-    private long ingredientId;
     private String dishName;
     private LocalDate toDoDate;
     private ToDoStatus toDoStatus;

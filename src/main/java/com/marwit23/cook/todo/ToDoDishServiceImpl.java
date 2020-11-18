@@ -43,12 +43,12 @@ public class ToDoDishServiceImpl implements ToDoDishService {
         return theToDoDish;
     }
 
-    // ! quantity validation
+    // * quantity validation
     @Override
     public void save(ToDoDish theToDoDish) {
         for (DishIngredient dishIngredient : theToDoDish.getDish().getDishIngredients()) {
             if (dishIngredient.getQuantityGrams()
-                    > dishIngredient.getIngredient().getSafeQuantity()) {
+                    > dishIngredient.getIngredient().getAvailableQuantity()) {
                 throw new RuntimeException
                         ("Cannot create this order. Ingredient: " + dishIngredient + " doesn't have sufficient quantity.");
             } else toDoDishRepository.save(theToDoDish);

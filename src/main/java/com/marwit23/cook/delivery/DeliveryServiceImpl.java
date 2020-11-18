@@ -1,5 +1,6 @@
 package com.marwit23.cook.delivery;
 
+import com.marwit23.cook._constants.DeliveryStatus;
 import com.marwit23.cook._exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,10 +16,12 @@ import java.util.Optional;
 public class DeliveryServiceImpl implements DeliveryService{
 
     private DeliveryRepository deliveryRepository;
+    private DeliveryItemRepository deliveryItemRepository;
 
     @Autowired
-    public DeliveryServiceImpl(DeliveryRepository deliveryRepository) {
+    public DeliveryServiceImpl(DeliveryRepository deliveryRepository, DeliveryItemRepository deliveryItemRepository) {
         this.deliveryRepository = deliveryRepository;
+        this.deliveryItemRepository = deliveryItemRepository;
     }
 
     @Override
@@ -47,6 +50,20 @@ public class DeliveryServiceImpl implements DeliveryService{
 
     @Override
     public void deleteById(Long deliveryId) {
-        deliveryRepository.deleteById(deliveryId);
+        Optional <Delivery> result = deliveryRepository.findById(deliveryId);
+        Delivery theDelivery = new Delivery();
+        if(result.isPresent()) theDelivery = result.get();
+        if(theDelivery.getDeliveryStatus() == DeliveryStatus.ORDERED) {
+            for(DeliveryItem deliveryItem : theDelivery.getDeliveryItems()){
+                deliveryItem.setDelivery(null);
+                deliveryItem.setIngredient(null);
+                deliveryItemRepository.delete(deliveryItem);
+            }
+            deliveryRepository.deleteById(deliveryId);
+        } else {
+            throw new RuntimeException("Cannot delete Delivery with status: delivered");
+        }
+
+
     }
 }

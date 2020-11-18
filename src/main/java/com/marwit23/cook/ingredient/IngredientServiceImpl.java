@@ -48,7 +48,12 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public void deleteById(Long theId) {
-        ingredientRepository.deleteById(theId);
+    public void deleteById(Long ingredientId) {
+        Optional <Ingredient> result = ingredientRepository.findById(ingredientId);
+        Ingredient theIngredient = new Ingredient();
+        if(result.isPresent()) theIngredient = result.get();
+        if(theIngredient.getDeliveryItems().size() > 0|| theIngredient.getDishIngredients().size() > 0){
+            throw new RuntimeException("Unable to delete. This ingredient is in use.");
+        } else ingredientRepository.deleteById(ingredientId);
     }
 }

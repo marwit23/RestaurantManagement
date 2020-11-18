@@ -51,7 +51,7 @@ public class ToDoDishController {
         return theToDoDishDTO;
     }
 
-    @PutMapping
+    @PutMapping("/{toDoDishId}")
     public ToDoDishDTO updateToDoDish(@RequestBody ToDoDishDTO toDoDishDto, @PathVariable Long toDoDishId) {
         ToDoDish theToDoDish = toDoDishMapper.convertToEntity(toDoDishDto);
         theToDoDish.setToDoDishId(toDoDishId);

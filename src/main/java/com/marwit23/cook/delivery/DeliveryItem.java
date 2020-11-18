@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import javax.validation.constraints.PositiveOrZero;
 
 @Getter
 @Setter
@@ -23,16 +23,19 @@ public class DeliveryItem {
     @ManyToOne
     @JoinColumn(name = "ingredientId")
     private Ingredient ingredient;
+
+    @PositiveOrZero
     private int orderedQuantity;
+
+    @PositiveOrZero
     private int deliveredQuantity;
+
+    @PositiveOrZero
     private Double pricePerKg;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "deliveryId")
     private Delivery delivery;
-
-    @Transient
-    private boolean isSafeToEat;
 
     public DeliveryItem(Ingredient ingredient, int orderedQuantity, Double pricePerKg, Delivery delivery) {
         this.ingredient = ingredient;
@@ -47,21 +50,5 @@ public class DeliveryItem {
         this.deliveredQuantity = deliveredQuantity;
         this.pricePerKg = pricePerKg;
         this.delivery = delivery;
-    }
-
-
-    @PostLoad
-    protected void onLoad() {
-        checkIsSafeToEat();
-    }
-
-    protected void checkIsSafeToEat() {
-        if (delivery.getDeliveredDate() != null) {
-            if (delivery.getDeliveredDate().plusDays(ingredient.getShelfLife()).isAfter(LocalDate.now().minusDays(1))) {
-                isSafeToEat = true;
-            } else {
-                isSafeToEat = false;
-            }
-        }
     }
 }

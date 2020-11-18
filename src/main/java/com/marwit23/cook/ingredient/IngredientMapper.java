@@ -1,7 +1,5 @@
 package com.marwit23.cook.ingredient;
 
-import com.marwit23.cook.dish.Dish;
-import com.marwit23.cook.todo.ToDoDish;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

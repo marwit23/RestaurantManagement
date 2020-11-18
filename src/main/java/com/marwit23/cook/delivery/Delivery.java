@@ -43,12 +43,12 @@ public class Delivery {
     private LocalDate deliveredDate;
 
     @NotNull
-    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "delivery", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<DeliveryItem> deliveryItems;
 
     @PrePersist
     protected void onCreate() {
-        if (orderedDate == null) {
+        if(orderedDate == null) {
             setOrderedDate(LocalDate.now());
         }
         checkDeliveredDate();
@@ -61,7 +61,7 @@ public class Delivery {
 
     public DeliveryStatus getDeliveryStatus() {
         DeliveryStatus deliveryStatus;
-        if (deliveredDate == null) {
+        if (deliveredDate == null){
             deliveryStatus = ORDERED;
         } else {
             deliveryStatus = DELIVERED;
@@ -71,12 +71,12 @@ public class Delivery {
 
     public void checkDeliveredDate() {
 
-        if (deliveredDate != null && deliveredDate.isBefore(orderedDate)) throw new DateNotValidException();
+        if (deliveredDate!= null && deliveredDate.isBefore(orderedDate)) throw new DateNotValidException();
     }
 
     public void setDeliveryItems(List<DeliveryItem> deliveryItems) {
         this.deliveryItems = deliveryItems;
-        if (deliveryItems != null) {
+        if(deliveryItems !=null) {
             for (DeliveryItem deliveryItem : deliveryItems) {
                 deliveryItem.setDelivery(this);
             }

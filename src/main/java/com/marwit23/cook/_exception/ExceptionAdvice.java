@@ -1,6 +1,5 @@
 package com.marwit23.cook._exception;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,12 +44,6 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, LocalDateTime.now(), errors);
         return new ResponseEntity<Object>(apiError, new HttpHeaders(),  apiError.getStatus());
-    }
-
-    @ResponseBody
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<String> handleDataIntegrityViolationException() {
-        return new ResponseEntity<String>("Cannot input entity. Probably such name already exists in the database.", HttpStatus.BAD_REQUEST);
     }
 
     @ResponseBody
