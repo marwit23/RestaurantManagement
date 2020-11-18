@@ -343,11 +343,11 @@ public class ApplicationDataLoader implements ApplicationRunner {
         // * DELIVERIES-------------------------------------------------------------------------------------------------
 
         Delivery delivery1 = new Delivery();
-        delivery1.setOrderedDate(LocalDate.now().minusDays(12));
-        delivery1.setDeliveredDate(LocalDate.now().minusDays(10));
+        delivery1.setOrderedDate(LocalDate.now().minusDays(3));
+        delivery1.setDeliveredDate(LocalDate.now().minusDays(2));
         Delivery delivery2 = new Delivery();
-        delivery2.setOrderedDate(LocalDate.now().minusDays(5));
-        delivery2.setDeliveredDate(LocalDate.now().minusDays(3));
+        delivery2.setOrderedDate(LocalDate.now().minusDays(2));
+        delivery2.setDeliveredDate(LocalDate.now().minusDays(1));
         Delivery delivery3 = new Delivery();
 
         DeliveryItem deliveryItem1 = new DeliveryItem(
