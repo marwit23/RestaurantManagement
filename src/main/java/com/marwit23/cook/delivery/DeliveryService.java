@@ -7,5 +7,6 @@ public interface DeliveryService {
     public List<Delivery> findAllWithParams(Integer pageNo, Integer pageSize, String sortBy);
     public Delivery findById(Long deliveryId);
     public void save(Delivery theDelivery);
+    public void update(Delivery theDelivery, long deliveryId);
     public void deleteById(Long deliveryId);
 }

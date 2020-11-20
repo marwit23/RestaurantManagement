@@ -49,6 +49,16 @@ public class DeliveryServiceImpl implements DeliveryService{
     public void save(Delivery theDelivery) { deliveryRepository.save(theDelivery); }
 
     @Override
+    public void update(Delivery theDelivery, long deliveryId) {
+        Optional<Delivery> result = deliveryRepository.findById(deliveryId);
+        Delivery tempDelivery = null;
+        if(result.isPresent()) tempDelivery = result.get();
+        theDelivery.setDeliveryId(deliveryId);
+        theDelivery.setOrderedDate(tempDelivery.getOrderedDate());
+        deliveryRepository.save(theDelivery);
+    }
+
+    @Override
     public void deleteById(Long deliveryId) {
         Optional <Delivery> result = deliveryRepository.findById(deliveryId);
         Delivery theDelivery = new Delivery();

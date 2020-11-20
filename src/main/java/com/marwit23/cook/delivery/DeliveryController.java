@@ -56,8 +56,7 @@ public class DeliveryController {
     @PutMapping("/{deliveryId}")
     public DeliveryDetailsDTO updateDelivery(@RequestBody DeliveryDetailsDTO deliveryDetailsDTO, @PathVariable Long deliveryId) {
         Delivery theDelivery = deliveryMapper.convertToEntity(deliveryDetailsDTO);
-        theDelivery.setDeliveryId(deliveryId);
-        deliveryService.save(theDelivery);
+        deliveryService.update(theDelivery, deliveryId);
         return deliveryMapper.convertToDtoDetails(theDelivery);
     }
 

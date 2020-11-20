@@ -31,7 +31,6 @@ public class Delivery {
     private long deliveryId;
 
     @CreatedDate
-    @Column(updatable = false)
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate orderedDate;
 
