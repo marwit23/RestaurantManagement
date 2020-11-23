@@ -3,8 +3,7 @@ package com.marwit23.cook._constants;
 public enum ToDoStatus {
     WAITING("waiting"),
     OPENED("opened"),
-    DONE("done"),
-    CANCELLED("cancelled");
+    COMPLETED("completed");
 
     private final String displayValue;
 
