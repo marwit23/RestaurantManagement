@@ -12,6 +12,7 @@ public class ToDoDishDTO {
 
     private long toDoDishId;
     private String dishName;
+    private int dishQuantity;
     private LocalDate toDoDate;
     private ToDoStatus toDoStatus;
 }

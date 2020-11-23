@@ -27,7 +27,7 @@ import static com.marwit23.cook._constants.DeliveryStatus.ORDERED;
 public class Delivery {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long deliveryId;
 
     @CreatedDate

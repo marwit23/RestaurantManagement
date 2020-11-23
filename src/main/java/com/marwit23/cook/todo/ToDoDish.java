@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
 @Getter
@@ -19,22 +20,26 @@ import java.time.LocalDate;
 public class ToDoDish {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long toDoDishId;
 
     @ManyToOne
     @JoinColumn(name = "dishId")
     private Dish dish;
 
+    @Positive
+    private int dishQuantity;
+
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate toDoDate;
 
     @Enumerated(EnumType.STRING)
-    private ToDoStatus toDoStatus = ToDoStatus.PENDING;
+    private ToDoStatus toDoStatus = ToDoStatus.OPENED;
 
-    public ToDoDish(Dish dish, LocalDate toDoDate, ToDoStatus toDoStatus) {
+    public ToDoDish(Dish dish, LocalDate toDoDate, ToDoStatus toDoStatus, int dishQuantity) {
         this.dish = dish;
         this.toDoDate = toDoDate;
         this.toDoStatus = toDoStatus;
+        this.dishQuantity = dishQuantity;
     }
 }

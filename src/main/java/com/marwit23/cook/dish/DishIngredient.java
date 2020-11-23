@@ -17,7 +17,7 @@ import javax.validation.constraints.Positive;
 public class DishIngredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long dishIngredientId;
 
     @ManyToOne

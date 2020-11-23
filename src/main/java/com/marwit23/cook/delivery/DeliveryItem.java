@@ -17,7 +17,7 @@ import javax.validation.constraints.PositiveOrZero;
 public class DeliveryItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long deliveryItemId;
 
     @ManyToOne

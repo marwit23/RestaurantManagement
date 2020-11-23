@@ -25,6 +25,7 @@ public class ToDoDishMapper {
         ToDoDish toDoDish = new ToDoDish();
         Dish dish = dishRepository.findByDishName(toDoDishDTO.getDishName());
         toDoDish.setDish(dish);
+        toDoDish.setDishQuantity(toDoDishDTO.getDishQuantity());
         toDoDish.setToDoDate(toDoDishDTO.getToDoDate());
         toDoDish.setToDoStatus(toDoDishDTO.getToDoStatus());
         return toDoDish;

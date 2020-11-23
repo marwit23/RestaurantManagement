@@ -26,7 +26,7 @@ import static com.marwit23.cook._constants.DeliveryStatus.ORDERED;
 public class Ingredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ingredientId;
 
     @Column(unique = true)
@@ -72,17 +72,15 @@ public class Ingredient {
     }
 
     // * This is a fake update because all to-do's are new.
-    // * Real calculations would be too big to perform on load as @Transient property
-    // * Solution:
-    // * 1. Create ToDoDishItem entity
-    // * 2. Connect each ToDoDishItem with corresponding DeliveryItem
-    // * 3. Persist into database and set a cron job to check expiration date for each item every day
+    // * Real calculations would be too big to perform on load
+    // * SOLUTION: Persist into database and set a cron job to check expiration date for each item every day
     public void updateQuantity() {
 
         // * USED
         for (DishIngredient dishIngredient : dishIngredients) {
             for (ToDoDish toDoDish : dishIngredient.getDish().getToDoDishList()) {
-                usedQuantity += dishIngredient.getQuantityGrams();
+                int tempDishQuantity = dishIngredient.getQuantityGrams() * toDoDish.getDishQuantity();
+                usedQuantity += tempDishQuantity;
             }
         }
 
