@@ -24,7 +24,7 @@ public class ToDoDishServiceImpl implements ToDoDishService {
 
     @Override
     public List<ToDoDish> findAll() {
-        return toDoDishRepository.findAll(Sort.by(Sort.Direction.DESC, "toDoDishId"));
+        return toDoDishRepository.findAll();
     }
 
     @Override
