@@ -32,13 +32,19 @@ public class DishMapper {
     }
 
     DishDetailsDTO convertToDtoDetails(Dish dish) {
-        DishDetailsDTO DishDetailsDTO = modelMapper.map(dish, DishDetailsDTO.class);
-        DishDetailsDTO.setIngredients(
-                dish.getDishIngredients().stream()
-                        .map(dishIngredient -> modelMapper.map(dishIngredient, DishIngredientDTO.class))
-                        .collect(Collectors.toList())
-        );
-        return DishDetailsDTO;
+        DishDetailsDTO dishDetailsDTO = new DishDetailsDTO();
+        dishDetailsDTO.setDishId(dish.getDishId());
+        dishDetailsDTO.setDishName(dish.getDishName());
+        List<DishIngredientDTO> dishIngredientDTOS = new ArrayList<>();
+        for(int i = 0; i< dish.getDishIngredients().size(); i++) {
+            DishIngredientDTO tempDishIngredientDTO = new DishIngredientDTO();
+            tempDishIngredientDTO.setIngredientName(dish.getDishIngredients().get(i).getIngredient().getIngredientName());
+            tempDishIngredientDTO.setQuantityGrams(dish.getDishIngredients().get(i).getQuantityGrams());
+            tempDishIngredientDTO.setAvailableQuantity(dish.getDishIngredients().get(i).getIngredient().getAvailableQuantity());
+            dishIngredientDTOS.add(tempDishIngredientDTO);
+        }
+        dishDetailsDTO.setIngredients(dishIngredientDTOS);
+        return dishDetailsDTO;
     }
 
     Dish convertToEntity(DishDetailsDTO dishDetailsDTO) {

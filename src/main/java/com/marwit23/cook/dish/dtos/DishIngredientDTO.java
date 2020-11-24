@@ -14,4 +14,5 @@ public class DishIngredientDTO {
     private long dishIngredientId;
     private String ingredientName;
     private int quantityGrams;
+    private int availableQuantity;
 }
