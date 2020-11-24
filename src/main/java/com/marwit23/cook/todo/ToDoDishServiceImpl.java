@@ -50,7 +50,7 @@ public class ToDoDishServiceImpl implements ToDoDishService {
             if (dishIngredient.getQuantityGrams() * toDoDish.getDishQuantity()
                     > dishIngredient.getIngredient().getAvailableQuantity()) {
                 throw new RuntimeException
-                        ("Cannot create this order. Ingredient: " + dishIngredient + " doesn't have sufficient quantity.");
+                        ("Cannot create this order. Ingredient: " + dishIngredient.getIngredient().getIngredientName() + " doesn't have sufficient quantity.");
             } else toDoDishRepository.save(toDoDish);
         }
     }
