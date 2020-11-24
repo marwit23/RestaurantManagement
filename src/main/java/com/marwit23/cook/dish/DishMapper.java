@@ -38,7 +38,7 @@ public class DishMapper {
         List<DishIngredientDTO> dishIngredientDTOS = new ArrayList<>();
         for(int i = 0; i< dish.getDishIngredients().size(); i++) {
             DishIngredientDTO tempDishIngredientDTO = new DishIngredientDTO();
-            tempDishIngredientDTO.setDishIngredientId(dish.getDishIngredients().get(i).getDishIngredientId());
+            tempDishIngredientDTO.setIngredientId(dish.getDishIngredients().get(i).getIngredient().getIngredientId());
             tempDishIngredientDTO.setIngredientName(dish.getDishIngredients().get(i).getIngredient().getIngredientName());
             tempDishIngredientDTO.setQuantityGrams(dish.getDishIngredients().get(i).getQuantityGrams());
             tempDishIngredientDTO.setAvailableQuantity(dish.getDishIngredients().get(i).getIngredient().getAvailableQuantity());
@@ -57,7 +57,6 @@ public class DishMapper {
             DishIngredientDTO tempDishIngredientDTO = dishDetailsDTO.getIngredients().get(i);
             tempDishIngredient.setIngredient(ingredientRepository.findByIngredientName(tempDishIngredientDTO.getIngredientName()));
             tempDishIngredient.setQuantityGrams(tempDishIngredientDTO.getQuantityGrams());
-            tempDishIngredient.setDishIngredientId(tempDishIngredientDTO.getDishIngredientId());
             dishIngredients.add(tempDishIngredient);
         }
         dish.setDishIngredients(dishIngredients);

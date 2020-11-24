@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DishIngredientDTO {
 
-    private long dishIngredientId;
+    private long ingredientId;
     private String ingredientName;
     private int quantityGrams;
     private int availableQuantity;
