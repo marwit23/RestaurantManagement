@@ -124,7 +124,7 @@ public class ApplicationDataLoader implements ApplicationRunner {
         // * DISHES-----------------------------------------------------------------------------------------------------
 
         DishIngredient dishIngredient1 = new DishIngredient(ingredientRepository.findByIngredientName("Ribeye steak"), 300);
-        DishIngredient dishIngredient2 = new DishIngredient(ingredientRepository.findByIngredientName("Canola Oil"), 30);
+        DishIngredient dishIngredient2 = new DishIngredient(ingredientRepository.findByIngredientName("Canola oil"), 30);
         DishIngredient dishIngredient3 = new DishIngredient(ingredientRepository.findByIngredientName("Butter"), 30);
         DishIngredient dishIngredient4 = new DishIngredient(ingredientRepository.findByIngredientName("Salt"), 10);
         DishIngredient dishIngredient5 = new DishIngredient(ingredientRepository.findByIngredientName("Black pepper"), 3);
