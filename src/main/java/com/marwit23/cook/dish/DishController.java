@@ -25,10 +25,10 @@ public class DishController {
     }
 
     @GetMapping
-    public List<DishSimpleDTO> findAll() {
+    public List<DishDetailsDTO> findAll() {
         List<Dish> theDishes = dishService.findAll();
         return theDishes.stream()
-                .map(dish -> dishMapper.convertToDtoSimple(dish))
+                .map(dish -> dishMapper.convertToDtoDetails(dish))
                 .collect(Collectors.toList());
     }
 

@@ -47,7 +47,9 @@ public class ToDoDishServiceImpl implements ToDoDishService {
     @Override
     public void save(ToDoDish toDoDish) {
         for (DishIngredient dishIngredient : toDoDish.getDish().getDishIngredients()) {
-            if (dishIngredient.getIngredient().getAvailableQuantity() < 0) {
+            if ((dishIngredient.getIngredient().getAvailableQuantity() -
+                    (dishIngredient.getQuantityGrams() * toDoDish.getDishQuantity())
+                    ) < 0) {
                 throw new RuntimeException
                         ("Cannot create this order. Ingredient: " + dishIngredient.getIngredient().getIngredientName() + " doesn't have sufficient quantity.");
             } else toDoDishRepository.save(toDoDish);
