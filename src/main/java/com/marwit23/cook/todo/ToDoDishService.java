@@ -3,9 +3,10 @@ package com.marwit23.cook.todo;
 import java.util.List;
 
 public interface ToDoDishService {
-    public List<ToDoDish> findAll();
-    public List<ToDoDish> findAllWithParams(Integer pageNo, Integer pageSize, String sortBy);
-    public ToDoDish findById(Long toDoDishId);
-    public void save(ToDoDish theToDoDish);
-    public void deleteById(Long toDoDishId);
+    List<ToDoDish> findAll();
+    List<ToDoDish> findAllWithParams(Integer pageNo, Integer pageSize, String sortBy);
+    ToDoDish findById(Long toDoDishId);
+    void save(ToDoDish theToDoDish);
+    void update(ToDoDish theToDoDish, Long toDoDishId);
+    void deleteById(Long toDoDishId);
 }

@@ -55,7 +55,7 @@ public class ToDoDishController {
     public ToDoDishDTO updateToDoDish(@RequestBody ToDoDishDTO toDoDishDto, @PathVariable Long toDoDishId) {
         ToDoDish theToDoDish = toDoDishMapper.convertToEntity(toDoDishDto);
         theToDoDish.setToDoDishId(toDoDishId);
-        toDoDishService.save(theToDoDish);
+        toDoDishService.update(theToDoDish, toDoDishId);
         return toDoDishMapper.convertToDto(theToDoDish);
     }
 

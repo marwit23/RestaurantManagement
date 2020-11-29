@@ -56,6 +56,21 @@ public class ToDoDishServiceImpl implements ToDoDishService {
         }
     }
 
+    // * quantity validation
+    @Override
+    public void update(ToDoDish toDoDish, Long toDoDishId) {
+        Optional<ToDoDish> result = toDoDishRepository.findById(toDoDishId);
+        ToDoDish oldToDoDish = null;
+        if(result.isPresent()) oldToDoDish = result.get();
+        int difference = toDoDish.getDishQuantity() - oldToDoDish.getDishQuantity();
+        for (DishIngredient dishIngredient : toDoDish.getDish().getDishIngredients()) {
+            if ((dishIngredient.getIngredient().getAvailableQuantity() - difference * dishIngredient.getQuantityGrams() ) < 0) {
+                throw new RuntimeException
+                        ("Cannot create this order. Ingredient: " + dishIngredient.getIngredient().getIngredientName() + " doesn't have sufficient quantity.");
+            } else toDoDishRepository.save(toDoDish);
+        }
+    }
+
     @Override
     public void deleteById(Long toDoDishId) {
         toDoDishRepository.deleteById(toDoDishId);
